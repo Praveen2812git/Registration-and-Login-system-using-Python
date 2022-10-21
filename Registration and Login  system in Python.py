@@ -40,7 +40,7 @@ def useridins():
 
 
 def passwordins():
-    print('----------------------------------------------------------------------------------------------------')
+    print('------------------------------------------------------------------')
     print('Password Instructions:')
     print('1. Password length must be between 5 and 15 \n2. Password must contain atleast one special character')
     print('3. Password must contain atleast one number')
