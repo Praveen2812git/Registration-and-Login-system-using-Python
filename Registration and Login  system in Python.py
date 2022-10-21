@@ -106,7 +106,7 @@ def register():
     c.close()
     conn.close()
     print('congratulation....')
-    print('Registeration is complete')
+    print('Registration is complete')
 
 # For Password in Login
 def login_password():
