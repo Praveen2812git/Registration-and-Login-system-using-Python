@@ -10,6 +10,7 @@ def sqllitefile():
                 (USER_ID TEXT PRIMARY  KEY NOT NULL,
                  PASSWORD TEXT NOT NULL);''')
 
+
 # For choosing between register and login
 def choose():
     sqllitefile()
@@ -17,28 +18,35 @@ def choose():
     while nc:
         print('Register or Login')
         lor = input('Type Login or Register to continue: ')
-        if lor == 'login' or lor == 'Login' or lor == 'LOGIN' :
+        if lor == 'login' or lor == 'Login' or lor == 'LOGIN':
             nc = False
             return login()
-        elif lor == 'register' or lor == 'Register' or lor == 'REGISTER' :
+        elif lor == 'register' or lor == 'Register' or lor == 'REGISTER':
             nc = False
             return register()
-        else :
+        else:
+            print('---------------------------------------------')
             print('Please only choose between Login and Register')
+
 
 # Instructions for registration
 def useridins():
+    print('--------------------------------------------------------------------------------')
     print('email/username Instructions:')
     print('1. email/username should have "@" and followed by "."')
     print('2. It should not be like this                                Eg:- @gmail.com')
     print('3. There should not be any "." immediate next to "@"         Eg:- my@.in')
     print('4. It should not start with special characters and numbers   Eg:- 123#@gmail.com')
+
+
 def passwordins():
+    print('----------------------------------------------------------------------------------------------------')
     print('Password Instructions:')
     print('1. Password length must be between 5 and 15 \n2. Password must contain atleast one special character')
     print('3. Password must contain atleast one number')
     print('4. Password must contain atleast one upper case character')
     print('5. password must contain atleast contain one lower case character')
+
 
 # For conditions in user id for registration
 def user_id_check_func(u):
@@ -46,12 +54,16 @@ def user_id_check_func(u):
     sc = """~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/"""
     ati, doti = 0, 0
     for i in range(len(u)):
-        if u[i]=='@': ati = i
-        elif u[i]=='.': doti = i
-    if ((u[0] not in numbers) and (u[0] not in sc)) and (doti > (ati +1)) :
+        if u[i] == '@':
+            ati = i
+        elif u[i] == '.':
+            doti = i
+    if ((u[0] not in numbers) and (u[0] not in sc)) and (doti > (ati + 1)):
         return True
-    else: return False
-    
+    else:
+        return False
+
+
 # For conditions in password for registration
 def password_check_func(p):
     sc = """~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/"""
@@ -60,33 +72,39 @@ def password_check_func(p):
     lc = 'abcdefghijklmnopqrstuvwxyz'
     scb, numbers_b, ucb, lcb = False, False, False, False
     for i in range(len(p)):
-        if p[i] in sc: scb = True
-        elif p[i] in numbers: numbers_b = True
-        elif p[i] in uc: ucb = True
-        elif p[i] in lc: lcb = True
-    if scb == numbers_b == ucb == lcb == True :
+        if p[i] in sc:
+            scb = True
+        elif p[i] in numbers:
+            numbers_b = True
+        elif p[i] in uc:
+            ucb = True
+        elif p[i] in lc:
+            lcb = True
+    if scb == numbers_b == ucb == lcb == True:
         return True
     else:
         return False
+
 
 # For Registeration
 def register():
     # User Name
     nu = True
-    while nu :
+    while nu:
         useridins()
-        print('---------------------------------------\n ')
+        print('---------------------------------------')
         user_id = input('Enter your email/username to register: ')
         user_id_check = user_id_check_func(user_id)
-        if user_id_check == False :
-            print('--------------------------------------\n ')
-            print('Read the below instructions carefully:')
-        else: nu = False
+        if user_id_check == False:
+            print('--------------------------------------')
+            print('Read the below instructions carefully:\n')
+        else:
+            nu = False
 
-    #If user_name already exists
+    # If user_name already exists
     exist = conn.execute("select USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
-    if exist :
-        print('------------------------------------------\n ')
+    if exist:
+        print('------------------------------------------')
         print('user_name not available')
         print('Please use different user name to register')
         register()
@@ -95,13 +113,13 @@ def register():
     np = True
     while np:
         passwordins()
-        print('----------------------------\n ')
+        print('----------------------------')
         password = input('Enter password to register: ')
         password_check = password_check_func(password)
         if 5 < len(password) < 16 and password_check:
             np = False
         else:
-            print('--------------------------------------\n ')
+            print('--------------------------------------')
             print('Read the below instructions carefully:')
 
     # File Handling
@@ -110,57 +128,62 @@ def register():
     conn.commit()
     c.close()
     conn.close()
-    print('------------------------\n ')
+    print('------------------------')
     print('congratulation....')
     print('Registration is complete')
 
+
 # For Password in Login
 def login_password():
-    #Password
-    print('-------------------------------------------------------------------------------------\n ')
+    # Password
+    print('-------------------------------------------------------------------------------------')
     print("Enter any number other than 1 to type password or Enter 1 if you forgot your password")
     pc = input()
-    if pc == '1' :
+    if pc == '1':
         password_id = c.execute("select password from login_details \
                     where user_id = ?", (user_id,)).fetchone()
-        print('-----------------------------------------------------------------\n ')
+        print('-----------------------------------------------------------------')
         print(f'Password for the mentioned username - {user_id} is :')
         print(password_id[0])
     else:
-        print('--------------------------\n ')
+        print('--------------------------')
         password = input('Enter Password for login: ')
         password_id_exists = c.execute("select password from login_details \
-        where user_id = ? and password = ?", (user_id,password,)).fetchone()
+        where user_id = ? and password = ?", (user_id, password,)).fetchone()
         if password_id_exists:
-            print('------------------\n ')
+            print('------------------')
             print('Login Successfull \nWelcome....')
         else:
-            print('--------------------------------\n ')
+            fl = 0
+            print('--------------------------------')
             print('Password is Incorrect, Try again')
             login_password()
 
+
 # For Username in Login
 def login():
-    #User Name
-    unchoice = 1
+    # User Name
+    global unchoice
+    unchoice, re = 1, 1
     global user_id
-    print(          '------------------------------------\n ')
-    user_id = input('Enter your username/email to login: ')
+    print('------------------------------------')
+    user_id = input('Enter username/email to login: ')
     user_id_exists = c.execute("select USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
-    if not user_id_exists :
-        print('------------------------------------------------------------------\n ')
+    if not user_id_exists:
+        print('------------------------------------------------------------------')
         print('user name does not exist, Please Register first')
         print('choose 1 to register or choose any other number to try login again')
         unlchoice = input()
-        if unlchoice != '1': login()
+        if unlchoice != '1':
+            login()
+            re = 0
         else:
             unchoice = 0
             register()
-
-    #password
-    if unchoice:
+    # password
+    if unchoice and re:
         login_password()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     choose()
