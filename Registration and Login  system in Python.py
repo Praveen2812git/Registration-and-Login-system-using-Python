@@ -116,6 +116,7 @@ def login_password():
     if pc == '1' :
         password_id = c.execute("select password from login_details \
                     where user_id = ?", (user_id,)).fetchone()
+        print('Password for the mentioned username is :')
         print(password_id[0])
     else:
         password = input('Enter Password for login: ')
