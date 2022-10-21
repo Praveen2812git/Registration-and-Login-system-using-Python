@@ -40,7 +40,7 @@ def passwordins():
     print('4. Password must contain atleast one upper case character')
     print('5. password must contain atleast contain one lower case character')
 
-# For conditions in user id in registration
+# For conditions in user id for registration
 def user_id_check_func(u):
     numbers = '0123456789'
     sc = """~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/"""
@@ -51,7 +51,8 @@ def user_id_check_func(u):
     if ((u[0] not in numbers) and (u[0] not in sc)) and (doti > (ati +1)) :
         return True
     else: return False
-# For conditions in password in registration
+    
+# For conditions in password for registration
 def password_check_func(p):
     sc = """~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/"""
     numbers = '0123456789'
