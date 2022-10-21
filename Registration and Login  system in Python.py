@@ -75,10 +75,10 @@ def register():
     nu = True
     while nu :
         useridins()
-        user_id = input('Please Enter your email/username: ')
+        user_id = input('Enter your email/username to register: ')
         user_id_check = user_id_check_func(user_id)
         if user_id_check == False :
-            print('Please read the below instructions carefully:')
+            print('Read the below instructions carefully:')
         else: nu = False
 
     #If user_name already exists
@@ -92,12 +92,12 @@ def register():
     np = True
     while np:
         passwordins()
-        password = input('Please Enter password: ')
+        password = input('Enter password to register: ')
         password_check = password_check_func(password)
         if 5 < len(password) < 16 and password_check:
             np = False
         else:
-            print('Please read the below instructions carefully:')
+            print('Read the below instructions carefully:')
 
     # File Handling
     c.execute("INSERT INTO login_details (USER_ID, PASSWORD) \
@@ -105,7 +105,7 @@ def register():
     conn.commit()
     c.close()
     conn.close()
-
+    print('congratulation....')
     print('Registeration is complete')
 
 # For Password in Login
@@ -118,7 +118,7 @@ def login_password():
                     where user_id = ?", (user_id,)).fetchone()
         print(password_id[0])
     else:
-        password = input('Enter Password: ')
+        password = input('Enter Password for login: ')
         password_id_exists = c.execute("SELECT password from login_details \
         where user_id = ? and password = ?", (user_id,password,)).fetchone()
         if password_id_exists:
@@ -129,11 +129,10 @@ def login_password():
 
 # For Username in Login
 def login():
-
     #User Name
     unchoice = 1
     global user_id
-    user_id = input('Enter your user name: ')
+    user_id = input('Enter your username/email to login: ')
     user_id_exists = c.execute("SELECT USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
     if not user_id_exists :
         print('user name does not exist, Please Register first')
