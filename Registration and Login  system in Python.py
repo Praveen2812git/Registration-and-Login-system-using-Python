@@ -138,8 +138,8 @@ def login():
     if not user_id_exists :
         print('user name does not exist, Please Register first')
         print('choose 1 to register or choose any other number to try login again')
-        unlchoice = int(input())
-        if unlchoice != 1: login()
+        unlchoice = input()
+        if unlchoice != '1': login()
         else:
             unchoice = 0
             register()
