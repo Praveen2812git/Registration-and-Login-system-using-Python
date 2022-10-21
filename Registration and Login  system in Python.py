@@ -7,7 +7,7 @@ def sqllitefile():
     global c
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS login_details
-                (USER_ID TEXT PRIMARY  KEY NOT NULL,
+                (USER_ID TEXT PRIMARY KEY NOT NULL,
                  PASSWORD TEXT NOT NULL);''')
 
 
