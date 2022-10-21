@@ -82,7 +82,7 @@ def register():
         else: nu = False
 
     #If user_name already exists
-    exist = conn.execute("SELECT USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
+    exist = conn.execute("select USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
     if exist :
         print('user_name not available')
         print('Please use different user name to register')
@@ -114,12 +114,12 @@ def login_password():
     print("Enter any number other than 1 to type password or Enter 1 if you forgot your password")
     pc = input()
     if pc == '1' :
-        password_id = c.execute("SELECT password from login_details \
+        password_id = c.execute("select password from login_details \
                     where user_id = ?", (user_id,)).fetchone()
         print(password_id[0])
     else:
         password = input('Enter Password for login: ')
-        password_id_exists = c.execute("SELECT password from login_details \
+        password_id_exists = c.execute("select password from login_details \
         where user_id = ? and password = ?", (user_id,password,)).fetchone()
         if password_id_exists:
             print('Login Sucessfull \nWelcome....')
@@ -133,7 +133,7 @@ def login():
     unchoice = 1
     global user_id
     user_id = input('Enter your username/email to login: ')
-    user_id_exists = c.execute("SELECT USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
+    user_id_exists = c.execute("select USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
     if not user_id_exists :
         print('user name does not exist, Please Register first')
         print('choose 1 to register or choose any other number to try login again')
