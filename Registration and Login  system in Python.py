@@ -75,15 +75,18 @@ def register():
     nu = True
     while nu :
         useridins()
+        print('---------------------------------------\n ')
         user_id = input('Enter your email/username to register: ')
         user_id_check = user_id_check_func(user_id)
         if user_id_check == False :
+            print('--------------------------------------\n ')
             print('Read the below instructions carefully:')
         else: nu = False
 
     #If user_name already exists
     exist = conn.execute("select USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
     if exist :
+        print('------------------------------------------\n ')
         print('user_name not available')
         print('Please use different user name to register')
         register()
@@ -92,11 +95,13 @@ def register():
     np = True
     while np:
         passwordins()
+        print('----------------------------\n ')
         password = input('Enter password to register: ')
         password_check = password_check_func(password)
         if 5 < len(password) < 16 and password_check:
             np = False
         else:
+            print('--------------------------------------\n ')
             print('Read the below instructions carefully:')
 
     # File Handling
@@ -105,26 +110,32 @@ def register():
     conn.commit()
     c.close()
     conn.close()
+    print('------------------------\n ')
     print('congratulation....')
     print('Registration is complete')
 
 # For Password in Login
 def login_password():
     #Password
+    print('-------------------------------------------------------------------------------------\n ')
     print("Enter any number other than 1 to type password or Enter 1 if you forgot your password")
     pc = input()
     if pc == '1' :
         password_id = c.execute("select password from login_details \
                     where user_id = ?", (user_id,)).fetchone()
-        print('Password for the mentioned username is :')
+        print('-----------------------------------------------------------------\n ')
+        print(f'Password for the mentioned username - {user_id} is :')
         print(password_id[0])
     else:
+        print('--------------------------\n ')
         password = input('Enter Password for login: ')
         password_id_exists = c.execute("select password from login_details \
         where user_id = ? and password = ?", (user_id,password,)).fetchone()
         if password_id_exists:
-            print('Login Sucessfull \nWelcome....')
+            print('------------------\n ')
+            print('Login Successfull \nWelcome....')
         else:
+            print('--------------------------------\n ')
             print('Password is Incorrect, Try again')
             login_password()
 
@@ -133,9 +144,11 @@ def login():
     #User Name
     unchoice = 1
     global user_id
+    print(          '------------------------------------\n ')
     user_id = input('Enter your username/email to login: ')
     user_id_exists = c.execute("select USER_ID from login_details where USER_ID like ?", (user_id,)).fetchone()
     if not user_id_exists :
+        print('------------------------------------------------------------------\n ')
         print('user name does not exist, Please Register first')
         print('choose 1 to register or choose any other number to try login again')
         unlchoice = input()
