@@ -45,7 +45,7 @@ def passwordins():
     print('1. Password length must be between 5 and 15 \n2. Password must contain atleast one special character')
     print('3. Password must contain atleast one number')
     print('4. Password must contain atleast one upper case character')
-    print('5. password must contain atleast contain one lower case character')
+    print('5. password must contain atleast one lower case character')
 
 
 # For conditions in user id for registration
