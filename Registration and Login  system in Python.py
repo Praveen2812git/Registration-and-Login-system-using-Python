@@ -1,6 +1,6 @@
 import sqlite3
 
-# Sqllite database and table
+# Sqlite database and table
 def sqllitefile():
     global conn
     conn = sqlite3.connect('login_data.db')
