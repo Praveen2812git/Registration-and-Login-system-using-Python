@@ -3,7 +3,7 @@
 
 # Workflow and logic
 ### Step 1
-**Choose between Registration and Login:**\
+**Choose between Registration and Login:**
 
 ### Step 2
 **Registration Condition:**
@@ -32,7 +32,7 @@
   - **Password**
     - If they have chosen forget password you should be able to retrieve their original password based on their username provided in the user input
      (only if their username matches with the data exists in the file).
-    - If nothing matches in your file you should ask them to Registration
+    - If nothing matches in your file you should ask them to Register.
      (Since they don't have an account).
      
      
