@@ -14,7 +14,7 @@
     - it should not start with special characters and numbers Eg:- 123#@gmail.com
   
   - **Password** 
-    - (5 < password length > 16)
+    - (5 < password length < 16)
     - must have minimum one special character
     - one digit
     - one uppercase
