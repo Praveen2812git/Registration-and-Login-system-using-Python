@@ -21,7 +21,7 @@
     - one lowercase character
     
 ### Step 3
-**Once the username and password are validated, store that data in a file.**
+**Once the username and password are validated, the data is stored in a file.**
 
 ### Step 4
 **Login**
